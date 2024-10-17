@@ -14,7 +14,7 @@ return new class extends Migration
         Schema::create('urls', function (Blueprint $table) {
             $table->id();
             $table->string('url_data', length: 2083);
-            $table->string('code', length: 5);
+            $table->string('code', length: 5)->unique();
             $table->smallInteger('visit_count')->default(0);
             $table->timestamps();
         });
