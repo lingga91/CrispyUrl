@@ -44,7 +44,9 @@ class UrlRepository implements UrlRepositoryInterface
          * find and return data by url
         */
 
-        return Url::where('url_data', $url)->first();
+        return Url::where('url_data', $url)
+                    ->whereRaw("expiry_at >= NOW()")
+                    ->first();
     }
 
     public function getByCode(string $code)
