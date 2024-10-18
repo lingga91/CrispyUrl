@@ -27,8 +27,9 @@ class UrlController extends Controller
         ]);
 
         try {
-            $url = $this->urlService->create($data);
-            return redirect()->back()->with('message', $url->code);
+            $record = $this->urlService->create($data);
+            $short_url = url($record->code);
+            return redirect()->back()->with('message', "Your short url: $short_url");
         } catch (\Exception $e) {
             abort(500, $e->getMessage());
         }
