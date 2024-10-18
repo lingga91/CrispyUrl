@@ -4,4 +4,4 @@ use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\UrlController;
 
 Route::get('/', [UrlController::class, 'index']);
-Route::post('save-url', [UrlController::class, 'save']);
+Route::post('create-url', [UrlController::class, 'create']);

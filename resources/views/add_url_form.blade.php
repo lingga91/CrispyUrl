@@ -25,7 +25,7 @@
                 <div class="card-header">
                     Please enter your URL below
                 </div>
-                <form method="post" action="{{url('save-url')}}" novalidate>
+                <form method="post" action="{{url('create-url')}}" novalidate>
                     @csrf
                     <div class="card-body">
                         <div class="row g-3 align-items-center">

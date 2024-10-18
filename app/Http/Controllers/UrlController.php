@@ -4,22 +4,28 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use Illuminate\View\View;
+use App\Services\UrlService;
 use Illuminate\Http\RedirectResponse;
 
 class UrlController extends Controller
 {
+    public function __construct(
+        protected UrlService $urlService
+    ) {
+    }
+
     public function index(): View
     {
         return view('add_url_form');
     }
 
-    public function save(Request $request): RedirectResponse
+    public function create(Request $request): RedirectResponse
     {   
         //validate input
-        $input = $request->validate([
+        $data = $request->validate([
             'url_data' => 'required|url|max:2083',
         ]);
         
-        dd($input);
+        $this->urlService->create($data);
     }
 }
