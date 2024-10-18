@@ -4,6 +4,7 @@ namespace App\Services;
 
 use App\Repositories\UrlRepository;
 use App\Helpers\Utility;
+use App\Models\Url;
 
 class UrlService
 {
@@ -13,7 +14,7 @@ class UrlService
     ) {
     }
 
-    public function create(array $data)
+    public function create(array $data): Url
     {
 
         //check url already exist
