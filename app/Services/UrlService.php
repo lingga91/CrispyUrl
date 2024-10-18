@@ -39,4 +39,13 @@ class UrlService
         return $this->urlRepository->create($data);
     }
 
+    public function getRedirectUrl(string $code): string
+    {
+        $data = $this->urlRepository->getByCode($code);
+        if(!$data){
+            throw new \Exception('url not found',404);       
+        }
+        return $data->url_data;
+    }
+
 }

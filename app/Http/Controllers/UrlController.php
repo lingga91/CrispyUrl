@@ -35,4 +35,17 @@ class UrlController extends Controller
         }
           
     }
+
+    public function loadUrl(string $code): RedirectResponse
+    {
+        try {
+            $redirect_url = $this->urlService->getRedirectUrl($code);
+            return redirect($redirect_url);
+        } catch (\Exception $e) {
+            if($e->getCode() == '404'){
+                abort(404);
+            }
+            abort(500, $e->getMessage());
+        }
+    }
 }

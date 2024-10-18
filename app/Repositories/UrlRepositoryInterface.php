@@ -9,5 +9,6 @@ interface UrlRepositoryInterface
     public function checkCodeExist(string $code);
     public function checkUrlExist(string $url);
     public function getByUrl(string $url);
+    public function getByCode(string $code);
 
 }
