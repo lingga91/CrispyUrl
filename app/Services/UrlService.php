@@ -45,6 +45,10 @@ class UrlService
         if(!$data){
             throw new \Exception('url not found',404);       
         }
+        //update visit count
+        $data->visit_count +=1;
+        $data->save();
+        
         return $data->url_data;
     }
 
