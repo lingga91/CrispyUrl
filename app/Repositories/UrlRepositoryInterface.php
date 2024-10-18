@@ -10,5 +10,6 @@ interface UrlRepositoryInterface
     public function checkUrlExist(string $url);
     public function getByUrl(string $url);
     public function getByCode(string $code);
+    public function setVisitor(array $data);
 
 }

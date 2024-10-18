@@ -36,10 +36,11 @@ class UrlController extends Controller
           
     }
 
-    public function loadUrl(string $code): RedirectResponse
+    public function loadUrl(string $code,Request $request): RedirectResponse
     {
         try {
-            $redirect_url = $this->urlService->getRedirectUrl($code);
+            $ip_address = $request->ip();
+            $redirect_url = $this->urlService->getRedirectUrl($code,$ip_address);
             return redirect($redirect_url);
         } catch (\Exception $e) {
             if($e->getCode() == '404'){

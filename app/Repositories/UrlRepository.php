@@ -3,6 +3,7 @@
 namespace App\Repositories;
 
 use App\Models\Url;
+use App\Models\Visitor;
 
 class UrlRepository implements UrlRepositoryInterface
 {
@@ -58,6 +59,15 @@ class UrlRepository implements UrlRepositoryInterface
         return  Url::where('code', $code)
                     ->whereRaw("expiry_at >= NOW()")
                     ->first();
+    }
+
+    public function setVisitor(array $data): Visitor
+    {
+        /**
+         * set visitor for an url
+        */
+
+        return Visitor::create($data);
     }
 
 }

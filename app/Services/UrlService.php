@@ -39,16 +39,24 @@ class UrlService
         return $this->urlRepository->create($data);
     }
 
-    public function getRedirectUrl(string $code): string
+    public function getRedirectUrl(string $code,string $ip_address): string
     {
         $data = $this->urlRepository->getByCode($code);
         if(!$data){
             throw new \Exception('url not found',404);       
         }
+
+        //set visitor
+        $visitor_data = [
+            'ip_address' => $ip_address,
+            'url_id'=>$data->id
+        ];
+        $this->urlRepository->setVisitor($visitor_data);
+
         //update visit count
         $data->visit_count +=1;
         $data->save();
-        
+
         return $data->url_data;
     }
 
