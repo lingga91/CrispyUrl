@@ -17,7 +17,7 @@ class UrlService
     public function create(array $data): Url
     {
 
-        //check url already exist
+        //check the url already exist in the system
         if($this->urlRepository->checkUrlExist($data['url_data'])){
             return $this->urlRepository->getByUrl($data['url_data']);
         }
