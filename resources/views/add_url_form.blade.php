@@ -35,7 +35,7 @@
                     <div class="card-body">
                         <div class="row g-3 align-items-center">
                             <div class="col-12">
-                                <input type="text" id="url_data" name="url_data" class="form-control @error('url_data') is-invalid @enderror" aria-describedby="passwordHelpInline">
+                                <input type="text" id="url_data" name="url_data" class="form-control @error('url_data') is-invalid @enderror" value="{{old('url_data')}}" >
                                 @error('url_data')
                                 <div class="invalid-feedback">
                                     {{ $message }}
