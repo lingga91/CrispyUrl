@@ -5,6 +5,7 @@ namespace App\Services;
 use App\Repositories\UrlRepository;
 use App\Helpers\Utility;
 use App\Models\Url;
+use App\Models\Visitor;
 
 class UrlService
 {
@@ -60,12 +61,37 @@ class UrlService
         return $data->url_data;
     }
 
-    public function getAnalyticsData($input)
+    public function getAnalyticsData(array $input)
     {
         $limit = $input['length']; 
         $offset = $input['start'];  
         
         $query = new Url; //start query builder 
+        $recordsTotal = $query->count(); //get total records 
+        $recordsFiltered = $query->count(); //get total records filtered 
+        $data = $query->offset($offset)->limit($limit)->get(); //paginate data
+
+        $result = [ 
+            'draw' => $input['draw'], 
+            'recordsTotal' => $recordsTotal, 
+            'recordsFiltered' => $recordsFiltered, 
+            'data' => $data, 
+        ];
+        return $result;
+    }
+
+    public function getUrlById(int $url_id) : array
+    {
+        $data = $this->urlRepository->getById($url_id);
+        return $data->toArray();
+    }
+
+    public function getVisitors(int $url_id,array $input)
+    {
+        $limit = $input['length']; 
+        $offset = $input['start'];  
+        
+        $query = Visitor::where('url_id',$url_id); //start query builder 
         $recordsTotal = $query->count(); //get total records 
         $recordsFiltered = $query->count(); //get total records filtered 
         $data = $query->offset($offset)->limit($limit)->get(); //paginate data

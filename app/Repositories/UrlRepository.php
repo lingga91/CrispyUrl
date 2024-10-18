@@ -50,6 +50,16 @@ class UrlRepository implements UrlRepositoryInterface
                     ->first();
     }
 
+    public function getById(int $url_id): Url
+    {
+        /**
+         * find and return data by id
+        */
+
+        return Url::where('id', $url_id)
+                    ->first();
+    }
+
     public function getByCode(string $code)
     {
         /**
