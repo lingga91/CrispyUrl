@@ -60,4 +60,23 @@ class UrlService
         return $data->url_data;
     }
 
+    public function getAnalyticsData($input)
+    {
+        $limit = $input['length']; 
+        $offset = $input['start'];  
+        
+        $query = new Url; //start query builder 
+        $recordsTotal = $query->count(); //get total records 
+        $recordsFiltered = $query->count(); //get total records filtered 
+        $data = $query->offset($offset)->limit($limit)->get(); //paginate data
+
+        $result = [ 
+            'draw' => $input['draw'], 
+            'recordsTotal' => $recordsTotal, 
+            'recordsFiltered' => $recordsFiltered, 
+            'data' => $data, 
+        ];
+        return $result;
+    }
+
 }
