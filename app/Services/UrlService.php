@@ -15,6 +15,12 @@ class UrlService
 
     public function create(array $data)
     {
+
+        //check url already exist
+        if($this->urlRepository->checkUrlExist($data['url_data'])){
+            return $this->urlRepository->getByUrl($data['url_data']);
+        }
+
         //generate unique code
         $flag= true;
         while($flag){
