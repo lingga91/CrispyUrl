@@ -33,7 +33,9 @@ class UrlRepository implements UrlRepositoryInterface
          * and valid/not expired
         */
 
-        return Url::where('url_data', $url)->exists();
+        return Url::where('url_data', $url)
+                    ->whereRaw("expiry_at >= NOW()")
+                    ->exists();
     }
 
     public function getByUrl(string $url): Url

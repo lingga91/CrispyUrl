@@ -16,6 +16,7 @@ return new class extends Migration
             $table->string('url_data', length: 2083);
             $table->string('code', length: 5)->unique();
             $table->smallInteger('visit_count')->default(0);
+            $table->dateTime('expiry_at');
             $table->timestamps();
         });
     }
