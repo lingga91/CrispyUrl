@@ -25,7 +25,13 @@ class UrlController extends Controller
         $data = $request->validate([
             'url_data' => 'required|url|max:2083',
         ]);
-        
-        $this->urlService->create($data);
+
+        try {
+            $url = $this->urlService->create($data);
+            return redirect()->back()->with('message', $url->code);
+        } catch (\Exception $e) {
+            abort(500, $e->getMessage());
+        }
+          
     }
 }

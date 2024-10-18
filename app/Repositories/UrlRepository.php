@@ -12,4 +12,9 @@ class UrlRepository implements UrlRepositoryInterface
         return Url::create($data);
     }
 
+    public function checkCodeExist(string $code)
+    {
+        return Url::where('code', $code)->exists();
+    }
+
 }

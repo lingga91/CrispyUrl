@@ -19,6 +19,11 @@
          <span class="fs-4">Url Shortner Service</span>
       </a>
     </header>
+    @if(session('message'))
+        <h6 class="alert alert-success">
+            {{ session('message') }}
+        </h6>
+    @endif
     <div class="row">
         <div class="col-md-8 offset-md-2">
             <div class="card">

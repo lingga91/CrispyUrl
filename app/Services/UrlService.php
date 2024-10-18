@@ -2,19 +2,28 @@
 
 namespace App\Services;
 
-use App\Repositories\UrlRepositoryInterface;
+use App\Repositories\UrlRepository;
+use App\Helpers\Utility;
 
 class UrlService
 {
+    
     public function __construct(
-        protected UrlRepositoryInterface $urlRepository
+        protected UrlRepository $urlRepository
     ) {
     }
 
     public function create(array $data)
     {
-        dd($data);
-        return $this->userRepository->create($data);
+        //generate unique code
+        $flag= true;
+        while($flag){
+            $code = Utility::generateRandomString(5);
+            $flag = $this->urlRepository->checkCodeExist($code);
+        }  
+
+        $data['code'] = $code;
+        return $this->urlRepository->create($data);
     }
 
 }
