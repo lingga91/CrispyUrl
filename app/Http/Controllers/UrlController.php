@@ -23,7 +23,7 @@ class UrlController extends Controller
     {   
         //validate input
         $data = $request->validate([
-            'url_data' => 'required|url|max:2083',
+            'url_data' => 'required|url:https|max:2083',
         ]);
 
         try {
