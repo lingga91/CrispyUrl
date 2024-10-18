@@ -41,6 +41,7 @@
                                             <th>View count</th>
                                             <th>Code</th>
                                             <th>Expired</th>
+                                            <th>Action</th>
                                         </tr>
                                     </thead>
                                 </table>
@@ -81,6 +82,15 @@ new DataTable('#analytics', {
             "render": function(data, type, row, meta) 
             { 
                 return Date.now() >= new Date(row.expiry_at); 
+            }, 
+        },
+        {
+            "data": null,
+            "orderable":false,
+            "render": function(data, type, row, meta) 
+            { 
+                let url_id = row.id
+                return `<a class="btn btn-primary" href="/analytics/details/${url_id}" role="button">Details</a>` 
             }, 
         },
 
