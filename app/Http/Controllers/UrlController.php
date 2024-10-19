@@ -6,6 +6,7 @@ use Illuminate\Http\Request;
 use Illuminate\View\View;
 use App\Services\UrlService;
 use Illuminate\Http\RedirectResponse;
+use Illuminate\Support\Facades\Log;
 
 class UrlController extends Controller
 {
@@ -31,9 +32,9 @@ class UrlController extends Controller
             $short_url = url($record->code);
             return redirect()->back()->with('message', "Your short url: $short_url");
         } catch (\Exception $e) {
+            Log::error('Error creating short url: ' . $e->getMessage());
             abort(500, $e->getMessage());
         }
-          
     }
 
     public function loadUrl(string $code,Request $request): RedirectResponse
@@ -46,6 +47,7 @@ class UrlController extends Controller
             if($e->getCode() == '404'){
                 abort(404);
             }
+            Log::error('Error loading url: ' . $e->getMessage());
             abort(500, $e->getMessage());
         }
     }
