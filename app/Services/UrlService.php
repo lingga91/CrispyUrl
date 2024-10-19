@@ -3,6 +3,7 @@
 namespace App\Services;
 
 use App\Repositories\UrlRepository;
+use App\Repositories\VisitorRepository;
 use App\Helpers\Utility;
 use App\Models\Url;
 use App\Models\Visitor;
@@ -11,7 +12,8 @@ class UrlService
 {
     
     public function __construct(
-        protected UrlRepository $urlRepository
+        protected UrlRepository $urlRepository,
+        protected VisitorRepository $visitorRepository,
     ) {
     }
 
@@ -52,7 +54,7 @@ class UrlService
             'ip_address' => $ip_address,
             'url_id'=>$data->id
         ];
-        $this->urlRepository->setVisitor($visitor_data);
+        $this->visitorRepository->setVisitor($visitor_data);
 
         //update visit count
         $data->visit_count +=1;
@@ -90,10 +92,9 @@ class UrlService
         $limit = $input['length']; 
         $offset = $input['start'];  
         
-        $query = Visitor::where('url_id',$url_id); //start query builder 
-        $recordsTotal = $query->count(); //get total records 
-        $recordsFiltered = $query->count(); //get total records filtered 
-        $data = $query->offset($offset)->limit($limit)->get(); //paginate data
+        $recordsTotal = $recordsFiltered = $this->visitorRepository->getTotalCountByUrl($url_id); //get total records 
+
+        $data = $this->visitorRepository->chunckDataByUrl($url_id,$limit,$offset); //paginate data
 
         $result = [ 
             'draw' => $input['draw'], 
