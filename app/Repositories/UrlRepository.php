@@ -80,4 +80,23 @@ class UrlRepository implements UrlRepositoryInterface
         return Visitor::create($data);
     }
 
+    public function getTotalCount(): int
+    {
+        /**
+         * count total urls data exist
+        */
+
+        return Url::count();
+    }
+
+    public function chunckData(int $limit,int $offset)
+    {
+        /**
+         * get limited the number of urs
+         * returned
+        */
+
+        return Url::offset($offset)->limit($limit)->get();
+    }
+
 }

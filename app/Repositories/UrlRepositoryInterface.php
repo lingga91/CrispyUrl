@@ -12,5 +12,7 @@ interface UrlRepositoryInterface
     public function getById(int $url_id);
     public function getByCode(string $code);
     public function setVisitor(array $data);
+    public function getTotalCount();
+    public function chunckData(int $limit,int $offset);
 
 }

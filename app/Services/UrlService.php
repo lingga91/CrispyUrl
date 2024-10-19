@@ -66,10 +66,9 @@ class UrlService
         $limit = $input['length']; 
         $offset = $input['start'];  
         
-        $query = new Url; //start query builder 
-        $recordsTotal = $query->count(); //get total records 
-        $recordsFiltered = $query->count(); //get total records filtered 
-        $data = $query->offset($offset)->limit($limit)->get(); //paginate data
+        $recordsTotal = $recordsFiltered = $this->urlRepository->getTotalCount(); //get total records 
+
+        $data = $this->urlRepository->chunckData($limit,$offset); //paginate data
 
         $result = [ 
             'draw' => $input['draw'], 
