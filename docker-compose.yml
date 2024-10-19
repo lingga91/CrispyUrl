@@ -2,7 +2,7 @@ version: '3.8'
 
 services:
   web:
-    image: crispyUrl:latest
+    image: crispy-url:latest
     container_name: webapp
     build:
       target: web
@@ -11,8 +11,8 @@ services:
       - .env
     ports:
       - "8000:80"
-    volumes:
-      - .:/var/www/html
+    #volumes:
+    #  - .:/var/www/html
     depends_on:
       - db
   
