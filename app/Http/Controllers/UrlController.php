@@ -55,7 +55,6 @@ class UrlController extends Controller
 
         try {
             $lock->block(5); //wait 5 seconds if cant acquire lock 
-            sleep(5);
             $ip_address = $request->ip();
             $redirect_url = $this->urlService->getRedirectUrl($code,$ip_address);
             return redirect($redirect_url);
