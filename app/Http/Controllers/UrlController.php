@@ -51,16 +51,25 @@ class UrlController extends Controller
 
     public function loadUrl(string $code,Request $request): RedirectResponse
     {
+        $lock = Cache::lock('load-url', 10); // set 10 seconds lock
+
         try {
+            $lock->block(5); //wait 5 seconds if cant acquire lock 
+            sleep(5);
             $ip_address = $request->ip();
             $redirect_url = $this->urlService->getRedirectUrl($code,$ip_address);
             return redirect($redirect_url);
-        } catch (\Exception $e) {
+        }catch (LockTimeoutException $e) {
+            Log::error('unable to obtain lock ' . $e->getMessage());
+            abort(500, $e->getMessage());
+        }catch (\Exception $e) {
             if($e->getCode() == '404'){
                 abort(404);
             }
             Log::error('Error loading url: ' . $e->getMessage());
             abort(500, $e->getMessage());
-        }
+        }finally {
+            $lock->release();
+        } 
     }
 }
