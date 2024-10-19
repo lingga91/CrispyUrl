@@ -82,8 +82,7 @@ class UrlRepository implements UrlRepositoryInterface
     public function chunckData(int $limit,int $offset)
     {
         /**
-         * get limited the number of urs
-         * returned
+         * get limited the number of urls
         */
 
         return Url::offset($offset)->limit($limit)->get();
